@@ -34,7 +34,9 @@ const SignInPage = () => {
             <SignInForm />
             <Link href="/sign-up" className="block text-center">
               No account?{" "}
-              <span className="text-violet-700 hover:underline">Sign Up</span>
+              <span className="text-violet-700 hover:underline dark:text-violet-400">
+                Sign Up
+              </span>
             </Link>
           </div>
         </div>

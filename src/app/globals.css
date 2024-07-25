@@ -4,27 +4,27 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
+    --background: 0 0% 95%; /* Light grey for light mode */
+    --foreground: 224 71.4% 4.1%; /* Original dark foreground color */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 224 71.4% 4.1%; /* Original dark foreground color */
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 224 71.4% 4.1%; /* Original dark foreground color */
+    --primary: 262.1 83.3% 57.8%; /* Original primary color */
+    --primary-foreground: 210 20% 98%; /* Original light primary foreground */
+    --secondary: 220 14.3% 95.9%; /* Very light grey */
+    --secondary-foreground: 220.9 39.3% 11%; /* Original secondary foreground */
+    --muted: 220 14.3% 95.9%; /* Very light grey */
+    --muted-foreground: 220 8.9% 46.1%; /* Original muted foreground */
+    --accent: 216 12.2% 83.9%; /* Medium light grey */
+    --accent-foreground: 220.9 39.3% 11%; /* Original accent foreground */
+    --destructive: 0 84.2% 60.2%; /* Original destructive color */
+    --destructive-foreground: 210 20% 98%; /* Original light destructive foreground */
+    --border: 220 13% 91%; /* Light grey border */
+    --input: 220 13% 91%; /* Light grey input */
+    --ring: 262.1 83.3% 57.8%; /* Original ring color */
+    --radius: 0.5rem; /* Original radius */
+    --chart-1: 12 76% 61%; /* Original chart colors */
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
@@ -32,26 +32,26 @@
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 263.4 70% 50.4%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 263.4 70% 50.4%;
-    --chart-1: 220 70% 50%;
+    --background: 0 0% 10%; /* Dark grey for dark mode */
+    --foreground: 210 20% 98%; /* Original light foreground color */
+    --card: 240 3.7% 15.9%; /* Less Dark grey for card */
+    --card-foreground: 210 20% 98%; /* Original light foreground color */
+    --popover: 240 5.3% 26.1%; /* Less Dark grey for popover */
+    --popover-foreground: 210 20% 98%; /* Original light foreground color */
+    --primary: 263.4 70% 50.4%; /* Original primary color */
+    --primary-foreground: 210 20% 98%; /* Original light primary foreground */
+    --secondary: 215 27.9% 20%; /* Dark grey for secondary elements */
+    --secondary-foreground: 210 20% 98%; /* Original light secondary foreground */
+    --muted: 215 27.9% 20%; /* Dark grey for muted elements */
+    --muted-foreground: 217.9 10.6% 64.9%; /* Original muted foreground */
+    --accent: 240 5.9% 10%; /* Dark grey for accent elements */
+    --accent-foreground: 210 20% 98%; /* Original light accent foreground */
+    --destructive: 0 62.8% 30.6%; /* Original destructive color */
+    --destructive-foreground: 210 20% 98%; /* Original light destructive foreground */
+    --border: 215 27.9% 20%; /* Dark grey border */
+    --input: 215 27.9% 20%; /* Dark grey input */
+    --ring: 263.4 70% 50.4%; /* Original ring color */
+    --chart-1: 220 70% 50%; /* Original chart colors */
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;

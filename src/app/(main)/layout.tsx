@@ -4,6 +4,7 @@ import { validationRequest } from "@/auth";
 
 import SessionProvider from "@/app/(main)/SessionProvider";
 import Navbar from "@/app/(main)/Navbar";
+import MenuBar from "@/app/(main)/MenuBar";
 
 const MainLayout = async ({ children }: { children: React.ReactNode }) => {
   /*This is for user experience => redirect user to the correct page, when we are gonna fetch data 
@@ -22,7 +23,12 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
     <SessionProvider value={session}>
       <div className="flex min-h-screen flex-col">
         <Navbar />
-        <div className="mx-auto max-w-7xl p-5">{children}</div>
+        <div className="mx-auto flex w-full max-w-7xl grow gap-5 p-5">
+          <MenuBar className="sticky top-[5.25rem] hidden h-fit flex-none space-y-3 rounded-2xl bg-card px-3 py-5 shadow-sm sm:block lg:px-5 xl:w-80" />
+          {children}
+        </div>
+        {/* Only visible on mobile screens at the bottom */}
+        <MenuBar className="sticky bottom-0 flex w-full justify-center gap-5 border-t bg-card p-3 sm:hidden" />
       </div>
     </SessionProvider>
   );
