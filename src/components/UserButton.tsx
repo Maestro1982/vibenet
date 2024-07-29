@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useSession } from "@/app/(main)/SessionProvider";
 
@@ -31,6 +32,7 @@ interface UserButtonProps {
 const UserButton = ({ className }: UserButtonProps) => {
   const { user } = useSession();
   const { theme, setTheme } = useTheme();
+  const queryClient = useQueryClient();
 
   return (
     <DropdownMenu>
@@ -82,6 +84,9 @@ const UserButton = ({ className }: UserButtonProps) => {
         <DropdownMenuSeparator className="dark:bg-zinc-600" />
         <DropdownMenuItem
           onClick={() => {
+            /* Removes cache data and make sure, the next user doesn't see the stale data
+            of the previous user */
+            queryClient.clear();
             logout();
           }}
         >
