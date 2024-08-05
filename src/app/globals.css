@@ -42,7 +42,7 @@
     --primary-foreground: 210 20% 98%; /* Original light primary foreground */
     --secondary: 215 27.9% 20%; /* Dark grey for secondary elements */
     --secondary-foreground: 210 20% 98%; /* Original light secondary foreground */
-    --muted: 215 27.9% 20%; /* Dark grey for muted elements */
+    --muted: 240 5.3% 26.1%; /* Less Dark grey for muted elements */
     --muted-foreground: 217.9 10.6% 64.9%; /* Original muted foreground */
     --accent: 240 5.9% 10%; /* Dark grey for accent elements */
     --accent-foreground: 210 20% 98%; /* Original light accent foreground */
