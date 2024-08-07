@@ -27,7 +27,7 @@ export async function login(
 
     if (!existingUser || !existingUser.passwordHash) {
       return {
-        error: "Incorrect username or password.",
+        error: "Incorrect username or password",
       };
     }
 
@@ -40,7 +40,7 @@ export async function login(
 
     if (!validPassword) {
       return {
-        error: "Incorrect username or password.",
+        error: "Incorrect username or password",
       };
     }
 

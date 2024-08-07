@@ -10,7 +10,7 @@ import Post from "@/components/posts/Post";
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 
-const ForYouFeed = () => {
+const FollowingFeed = () => {
   const {
     data,
     fetchNextPage,
@@ -19,11 +19,11 @@ const ForYouFeed = () => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["post-feed", "for-you"],
+    queryKey: ["post-feed", "following"],
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          "/api/posts/for-you",
+          "/api/posts/following",
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostsPage>(),
@@ -41,7 +41,7 @@ const ForYouFeed = () => {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        No one posted anything yet.
+        No posts found. Start following people to see their posts.
       </p>
     );
   }
@@ -66,4 +66,4 @@ const ForYouFeed = () => {
     </InfiniteScrollContainer>
   );
 };
-export default ForYouFeed;
+export default FollowingFeed;
