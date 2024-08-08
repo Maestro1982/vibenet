@@ -10,11 +10,13 @@ import { validationRequest } from "@/auth";
 
 import TrendsSidebar from "@/components/TrendsSidebar";
 import UserAvatar from "@/components/UserAvatar";
+import FollowButton from "@/components/FollowButton";
+import Linkify from "@/components/Linkify";
 
 import FollowerCount from "@/components/FollowerCount";
 import { Button } from "@/components/ui/button";
-import FollowButton from "@/components/FollowButton";
-import UserPostsFeed from "./UserPostsFeed";
+
+import UserPostsFeed from "@/app/(main)/users/[username]/UserPostsFeed";
 
 interface UserProps {
   params: { username: string };
@@ -125,9 +127,11 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       {user.bio && (
         <>
           <hr />
-          <div className="overflow-hidden whitespace-pre-line break-words">
-            {user.bio}
-          </div>
+          <Linkify>
+            <div className="overflow-hidden whitespace-pre-line break-words">
+              {user.bio}
+            </div>
+          </Linkify>
         </>
       )}
     </div>
