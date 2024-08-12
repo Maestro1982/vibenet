@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image, { StaticImageData } from "next/image";
+import Resizer from "react-image-file-resizer";
 
 import {
   Dialog,
@@ -36,6 +37,7 @@ import { useUpdateUserProfileMutation } from "@/app/(main)/users/[username]/muta
 
 import avatarPlaceholder from "@/assets/avatar-placeholder.png";
 import { Camera } from "lucide-react";
+import CropImageDialog from "@/components/CropImageDialog";
 
 interface EditProfileDialogProps {
   user: UserData;
@@ -60,12 +62,18 @@ const EditProfileDialog = ({
   const [croppedAvatar, setCroppedAvatar] = useState<Blob | null>(null);
 
   async function onSubmit(values: UpdateUserProfileValues) {
+    const newAvatarFile = croppedAvatar
+      ? new File([croppedAvatar], `avatar_${user.id}.webp`)
+      : undefined;
+
     mutation.mutate(
       {
         values,
+        avatar: newAvatarFile,
       },
       {
         onSuccess: () => {
+          setCroppedAvatar(null);
           onOpenChange(false);
         },
       },
@@ -144,6 +152,17 @@ const AvatarInput = ({ src, onImageCropped }: AvatarInputProps) => {
 
   function onImageSelected(image: File | undefined) {
     if (!image) return;
+
+    Resizer.imageFileResizer(
+      image,
+      1024,
+      1024,
+      "WEBP",
+      100,
+      0,
+      (uri) => setImageToCrop(uri as File),
+      "file",
+    );
   }
 
   return (
@@ -171,6 +190,21 @@ const AvatarInput = ({ src, onImageCropped }: AvatarInputProps) => {
           <Camera size={24} />
         </span>
       </button>
+      {imageToCrop && (
+        <CropImageDialog
+          src={URL.createObjectURL(imageToCrop)}
+          cropAspectRatio={1}
+          onCropped={onImageCropped}
+          onClose={() => {
+            // close the dialog because if there is an image the dialog is automatically open
+            setImageToCrop(undefined);
+            if (fileInputRef.current) {
+              /* If the dialog closes and you select the same image, it can because it always gonna be reset to empty */
+              fileInputRef.current.value = "";
+            }
+          }}
+        />
+      )}
     </>
   );
 };
