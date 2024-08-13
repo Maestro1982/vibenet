@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { Media } from "@prisma/client";
 
 import { PostData } from "@/lib/types";
-import { formatRelativeDate } from "@/lib/utils";
+import { cn, formatRelativeDate } from "@/lib/utils";
 import { useSession } from "@/app/(main)/SessionProvider";
 
 import UserAvatar from "@/components/UserAvatar";
@@ -55,7 +57,62 @@ const Post = ({ post }: PostProps) => {
       <Linkify>
         <div className="whitespace-pre-line break-words">{post.content}</div>
       </Linkify>
+      {!!post.attachments.length && (
+        <MediaPreviews attachments={post.attachments} />
+      )}
     </article>
   );
 };
+
+interface MediaPreviewsProps {
+  attachments: Media[];
+}
+
+const MediaPreviews = ({ attachments }: MediaPreviewsProps) => {
+  return (
+    <div
+      className={cn(
+        "flex flex-col gap-3",
+        attachments.length > 1 && "sm:grid sm:grid-cols-2",
+      )}
+    >
+      {attachments.map((media) => (
+        <MediaPreview key={media.id} media={media} />
+      ))}
+    </div>
+  );
+};
+
+interface MediaPreviewProps {
+  media: Media;
+}
+
+const MediaPreview = ({ media }: MediaPreviewProps) => {
+  if (media.type === "IMAGE") {
+    return (
+      <Image
+        src={media.url}
+        alt="Attachment"
+        width={500}
+        height={500}
+        className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+      />
+    );
+  }
+
+  if (media.type === "VIDEO") {
+    return (
+      <div>
+        <video
+          src={media.url}
+          controls
+          className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+        />
+      </div>
+    );
+  }
+
+  return <p className="text-destructive">Unsupported media type</p>;
+};
+
 export default Post;

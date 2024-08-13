@@ -6,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 import { useUploadThing } from "@/lib/uploadthing";
 
-export interface Attachments {
+export interface Attachment {
   file: File;
   mediaId?: string;
   isUploading: boolean;
@@ -15,7 +15,7 @@ export interface Attachments {
 export default function useMediaUpload() {
   const { toast } = useToast();
 
-  const [attachments, setAttachments] = useState<Attachments[]>([]);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [uploadProgress, setUploadProgress] = useState<number>();
 
   const { startUpload, isUploading } = useUploadThing("attachment", {
