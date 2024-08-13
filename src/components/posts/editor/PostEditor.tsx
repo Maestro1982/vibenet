@@ -86,7 +86,7 @@ const PostEditor = () => {
         {isUploading && (
           <>
             <span className="text-sm">{uploadProgress ?? 0}%</span>
-            <Loader2 size={5} className="animate-spin text-primary" />
+            <Loader2 className="size-5 animate-spin text-primary" />
           </>
         )}
         <AddAttachmentsButton
