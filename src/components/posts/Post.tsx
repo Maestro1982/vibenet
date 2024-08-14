@@ -42,6 +42,10 @@ const Post = ({ post }: PostProps) => {
             <Link
               href={`/posts/${post.id}`}
               className="block text-sm text-muted-foreground hover:underline"
+              /* This supress is set because: the server generates html and also the client, but if the post is for
+              ex 7sec (post created time) on the server and 8sec (post created time) on the client you will 
+              get otherwise the Hydration Error */
+              suppressHydrationWarning
             >
               {formatRelativeDate(post.createdAt)}
             </Link>
