@@ -12,6 +12,7 @@ import UserAvatar from "@/components/UserAvatar";
 import PostMoreButton from "@/components/posts/PostMoreButton";
 import Linkify from "@/components/Linkify";
 import UserTooltip from "@/components/UserTooltip";
+import LikeButton from "@/components/posts/LikeButton";
 
 interface PostProps {
   post: PostData;
@@ -64,6 +65,14 @@ const Post = ({ post }: PostProps) => {
       {!!post.attachments.length && (
         <MediaPreviews attachments={post.attachments} />
       )}
+      <hr className="text-muted-foreground" />
+      <LikeButton
+        postId={post.id}
+        initialState={{
+          likes: post._count.likes,
+          isLikedByUser: post.likes.some((like) => like.userId === user.id),
+        }}
+      />
     </article>
   );
 };
