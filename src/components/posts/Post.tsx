@@ -9,10 +9,11 @@ import { cn, formatRelativeDate } from "@/lib/utils";
 import { useSession } from "@/app/(main)/SessionProvider";
 
 import UserAvatar from "@/components/UserAvatar";
-import PostMoreButton from "@/components/posts/PostMoreButton";
 import Linkify from "@/components/Linkify";
 import UserTooltip from "@/components/UserTooltip";
+import PostMoreButton from "@/components/posts/PostMoreButton";
 import LikeButton from "@/components/posts/LikeButton";
+import BookmarkButton from "@/components/posts/BookmarkButton";
 
 interface PostProps {
   post: PostData;
@@ -66,13 +67,23 @@ const Post = ({ post }: PostProps) => {
         <MediaPreviews attachments={post.attachments} />
       )}
       <hr className="text-muted-foreground" />
-      <LikeButton
-        postId={post.id}
-        initialState={{
-          likes: post._count.likes,
-          isLikedByUser: post.likes.some((like) => like.userId === user.id),
-        }}
-      />
+      <div className="flex justify-between gap-5">
+        <LikeButton
+          postId={post.id}
+          initialState={{
+            likes: post._count.likes,
+            isLikedByUser: post.likes.some((like) => like.userId === user.id),
+          }}
+        />
+        <BookmarkButton
+          postId={post.id}
+          initialState={{
+            isBookmarkedByUser: post.bookmarks.some(
+              (bookmark) => bookmark.userId === user.id,
+            ),
+          }}
+        />
+      </div>
     </article>
   );
 };
