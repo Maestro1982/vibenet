@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { MoreHorizontal, Trash2 } from "lucide-react";
 
-import { PostData } from "@/lib/types";
-
-import DeletePostDialog from "@/components/posts/DeletePostDialog";
+import { CommentData } from "@/lib/types";
 
 import {
   DropdownMenu,
@@ -15,12 +13,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-interface PostMoreButtonProps {
-  post: PostData;
+import DeleteCommentDialog from "@/components/comments/DeleteCommentDialog";
+
+interface CommentMoreButtonProps {
+  comment: CommentData;
   className?: string;
 }
 
-const PostMoreButton = ({ post, className }: PostMoreButtonProps) => {
+const CommentMoreButton = ({ comment, className }: CommentMoreButtonProps) => {
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
 
   return (
@@ -40,12 +40,12 @@ const PostMoreButton = ({ post, className }: PostMoreButtonProps) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeletePostDialog
-        post={post}
+      <DeleteCommentDialog
+        comment={comment}
         open={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}
       />
     </>
   );
 };
-export default PostMoreButton;
+export default CommentMoreButton;
