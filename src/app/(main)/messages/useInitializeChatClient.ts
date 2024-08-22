@@ -20,6 +20,7 @@ export default function useInitializeChatClient() {
           username: user.username,
           name: user.displayName,
           image: user.avatarUrl,
+          language: "en",
         },
         async () =>
           await kyInstance

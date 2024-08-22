@@ -8,6 +8,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 
 import { signUpSchema, SignUpValues } from "@/lib/validation";
 import prisma from "@/lib/prisma";
+import streamServerClient from "@/lib/stream";
 
 import { lucia } from "@/auth";
 
@@ -56,15 +57,22 @@ export async function signUp(
       };
     }
 
-    // Create a new user in the database
-    await prisma.user.create({
-      data: {
+    await prisma.$transaction(async (tx) => {
+      // Create a new user in the database
+      await tx.user.create({
+        data: {
+          id: userId,
+          username,
+          displayName: username,
+          email,
+          passwordHash,
+        },
+      });
+      await streamServerClient.upsertUser({
         id: userId,
         username,
-        displayName: username,
-        email,
-        passwordHash,
-      },
+        name: username,
+      });
     });
 
     // Immediately setup a session so we don't need to login after signing up
