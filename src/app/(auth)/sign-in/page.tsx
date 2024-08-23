@@ -6,6 +6,7 @@ import vibeNetLogo from "@/assets/vibenet-logo.png";
 import loginImage from "@/assets/login-image.jpg";
 
 import SignInForm from "@/app/(auth)/sign-in/SignInForm";
+import GoogleSignInButton from "@/app/(auth)/sign-in/GoogleSignInButton";
 
 export const metadata: Metadata = {
   title: "Sign-In",
@@ -31,6 +32,12 @@ const SignInPage = () => {
             friend.
           </p>
           <div className="space-y-5">
+            <GoogleSignInButton />
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-muted" />
+              <span>OR</span>
+              <div className="h-px flex-1 bg-muted" />
+            </div>
             <SignInForm />
             <Link href="/sign-up" className="block text-center">
               No account?{" "}
