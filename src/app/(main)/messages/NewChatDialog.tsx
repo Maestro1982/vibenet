@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { DefaultStreamChatGenerics, useChatContext } from "stream-chat-react";
 import { UserResponse } from "stream-chat";
-import { useQuery } from "@tanstack/react-query";
-import { Check, SearchIcon, X } from "lucide-react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Check, Loader2, SearchIcon, X } from "lucide-react";
 
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -17,6 +18,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useSession } from "@/app/(main)/SessionProvider";
 import useDebounce from "@/hooks/useDebounce";
 import UserAvatar from "@/components/UserAvatar";
+import LoadingButton from "@/components/LoadingButton";
 
 interface NewChatDialogProps {
   onOpenChange: (open: boolean) => void;
@@ -51,6 +53,33 @@ const NewChatDialog = ({ onOpenChange, onChatCreated }: NewChatDialogProps) => {
         { name: 1, username: 1 },
         { limit: 15 },
       ),
+  });
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const channel = client.channel("messaging", {
+        members: [loggedInUser.id, ...selectedUsers.map((user) => user.id)],
+        name:
+          selectedUsers.length > 1
+            ? loggedInUser.displayName +
+              ", " +
+              selectedUsers.map((user) => user.name).join(", ")
+            : undefined,
+      });
+      await channel.create();
+      return channel;
+    },
+    onSuccess: (channel) => {
+      setActiveChannel(channel);
+      onChatCreated();
+    },
+    onError(error) {
+      console.error("Error starting chat", error);
+      toast({
+        variant: "destructive",
+        description: "Error starting chat. Please try again.",
+      });
+    },
   });
 
   return (
@@ -101,8 +130,28 @@ const NewChatDialog = ({ onOpenChange, onChatCreated }: NewChatDialogProps) => {
                   }}
                 />
               ))}
+            {isSuccess && !data.users.length && (
+              <p className="my-3 text-center text-muted-foreground">
+                No users found. Try a different name.
+              </p>
+            )}
+            {isFetching && <Loader2 className="mx-auto my-3 animate-spin" />}
+            {isError && (
+              <p className="my-3 text-center text-destructive">
+                An error occured while loading users.
+              </p>
+            )}
           </div>
         </div>
+        <DialogFooter className="px-6 pb-6">
+          <LoadingButton
+            disabled={!selectedUsers.length}
+            loading={mutation.isPending}
+            onClick={() => mutation.mutate()}
+          >
+            Start chat
+          </LoadingButton>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

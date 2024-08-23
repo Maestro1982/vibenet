@@ -1,10 +1,12 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ChannelList,
   ChannelPreviewMessenger,
   ChannelPreviewUIComponentProps,
+  useChatContext,
 } from "stream-chat-react";
 import { MailPlus, X } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useSession } from "@/app/(main)/SessionProvider";
 
@@ -21,6 +23,17 @@ interface ChatSidebarProps {
 
 const ChatSidebar = ({ open, onClose }: ChatSidebarProps) => {
   const { user } = useSession();
+
+  const queryClient = useQueryClient();
+
+  const { channel } = useChatContext();
+
+  /* Revalidates the messages count whenever we switch between chats */
+  useEffect(() => {
+    if (channel?.id) {
+      queryClient.invalidateQueries({ queryKey: ["unread-messages-count"] });
+    }
+  }, [channel?.id, queryClient]);
 
   /* This component will NOT be initialized everytime the component re-renders only when the dependancy changes
   thats why the useCallback is being used */
